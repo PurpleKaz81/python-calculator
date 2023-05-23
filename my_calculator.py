@@ -17,9 +17,9 @@ operations = {
 def perform_operation(choice, a, b):
     return operations.get(choice, lambda a, b: None)(a, b)
 
-def play():
-    welcome_message("Welcome to the calculator")
+welcome_message("Welcome to the calculator")
 
+def play():
     a = float(input(""))
 
     choice = input("Proceed with your operation: ")
@@ -28,12 +28,16 @@ def play():
         goodbye()
         return False
 
-    b = float(input(""))
+    b = 0
+    while b == 0:
+        b = float(input(""))
+        if b == 0:
+            print("You can't divide by zero, you twat. Try again")
 
     if choice in operations:
         result = perform_operation(choice, a, b)
         if result is not None:
-            print(f"Result: {result}")
+            print(f"Result: {result}" if result is not None else "Error")
         else:
             print("Error")
     else:
